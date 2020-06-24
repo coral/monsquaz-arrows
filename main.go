@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"math"
 	"math/rand"
 	"time"
@@ -10,10 +11,18 @@ import (
 
 func main() {
 
-	screenWidth := int32(1920)
-	screenHeight := int32(1080)
+	var width = flag.Int("w", 1920, "width")
+	var height = flag.Int("h", 1080, "height")
+	var fullscreen = flag.Bool("fullscreen", false, "fullscreen")
 
+	flag.Parse()
+
+	screenWidth := int32(*width)
+	screenHeight := int32(*height)
 	rl.InitWindow(screenWidth, screenHeight, "MONSQUAZ")
+	if *fullscreen {
+		rl.ToggleFullscreen()
+	}
 	rl.SetTargetFPS(60)
 
 	render := Arend{
